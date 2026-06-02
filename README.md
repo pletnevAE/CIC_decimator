@@ -25,7 +25,9 @@ $R$ — decimation ratio, $M$ — differential delay of each comb stage, $N$ —
 This is equivalent to $N$ cascaded moving averages of a rectangular window of length $R \cdot M$. The frequency response has zeros at multiples of $f_{\text{out}} = f_{\text{clk}}/R$.
 The maximum DC frequency response is $(R \cdot M)^N$. The internal accumulators must be wide enough to represent this value without overflow – therefore:
 
-$$\text{ACC\_WIDTH} = \text{IN\_WIDTH} + N \cdot \log_2(R \cdot M)$$
+```math
+\text{ACC\_WIDTH} = \text{IN\_WIDTH} + N \cdot \log_2(R \cdot M)
+```
 
 ## Architecture
 The integrator section operates at the input clock frequency. The comb section is clocked by the `dec_pulse` signal and operates at a reduced frequency, $f_{clk}/R$. Key implementation features:
