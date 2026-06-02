@@ -18,13 +18,14 @@ Typical applications:
 ## Theory Background
 The CIC filter was proposed by Eugene Hogenauer in 1981 as a hardware-efficient structure for sampling rate conversion. Its Z-domain transfer function is:
 
-$H(z) = {(1-z^{(-R*M)})}^N/(1-z^{(-1)})$,
+$$H(z) = \frac{(1 - z^{-R \cdot M})^N}{1 - z^{-1}}$$
 
-$R$ - decimation ratio, $M$ - differential delay of each comb stage, $N$ - filter order.
-This is equivalent to $N$ cascaded moving averages of a rectangular window of length $R*M$. The frequency response has zeros at multiples of $f_{out} = f_{clk}/R$.
-The maximum DC frequency response is $(R*M)^N$. The internal accumulators must be wide enough to represent this value without overflow – therefore:
+$R$ — decimation ratio, $M$ — differential delay of each comb stage, $N$ — filter order.
 
-$ACC\_WIDTH = IN\_WIDTH + N * (log_2(R*M)).$
+This is equivalent to $N$ cascaded moving averages of a rectangular window of length $R \cdot M$. The frequency response has zeros at multiples of $f_{\text{out}} = f_{\text{clk}}/R$.
+The maximum DC frequency response is $(R \cdot M)^N$. The internal accumulators must be wide enough to represent this value without overflow – therefore:
+
+$$\text{ACC\_WIDTH} = \text{IN\_WIDTH} + N \cdot \log_2(R \cdot M)$$
 
 ## Architecture
 The integrator section operates at the input clock frequency. The comb section is clocked by the `dec_pulse` signal and operates at a reduced frequency, $f_{clk}/R$. Key implementation features:
