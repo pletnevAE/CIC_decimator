@@ -109,7 +109,6 @@ generate
 			always @ (posedge clk, negedge rst_n) begin
 				if (!rst_n) begin
 					sr[j] <= {ACC_WIDTH{1'b0}};
-					temp <= {ACC_WIDTH{1'b0}};
 				end
 				else begin
 					if (dec_pulse) begin
